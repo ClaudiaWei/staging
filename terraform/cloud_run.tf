@@ -1,10 +1,10 @@
 resource "google_cloud_run_v2_service" "staging" {
-  name     = "${var.project_name}-${var.deploy_env}"
+  name     = "${var.project_name}-${var.deploy_env}-ooo"
   location = "europe-west1"
 
   template {
     containers {
-      image = "gcr.io/staging-blakbear/staging-${var.deploy_env}"
+      image = "gcr.io/tidy-alchemy-377317/staging-${var.deploy_env}-ooo"
       resources {
         cpu_idle = true
         limits = {

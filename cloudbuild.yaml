@@ -1,10 +1,10 @@
 steps:
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/staging-blakbear/staging-$_DEPLOY_ENV", "."]
+    args: ["build", "-t", "gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV", "."]
   # Push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/staging-blakbear/staging-$_DEPLOY_ENV"]
+    args: ["push", "gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV-ooo"]
   # Deploy container image to Cloud Run
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
@@ -12,13 +12,13 @@ steps:
       [
         "run",
         "deploy",
-        "staging-$_DEPLOY_ENV",
+        "staging-$_DEPLOY_ENV-ooo",
         "--image",
-        "gcr.io/staging-blakbear/staging-$_DEPLOY_ENV",
+        "gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV-ooo",
         "--region",
         "europe-west1",
       ]
 images:
-  - gcr.io/staging-blakbear/staging-$_DEPLOY_ENV
+  - gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV
 options:
   logging: CLOUD_LOGGING_ONLY

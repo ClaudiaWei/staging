@@ -9,7 +9,7 @@ data "google_secret_manager_secret_version" "github-token-secret-version" {
 data "google_iam_policy" "serviceagent-secretAccessor" {
   binding {
     role    = "roles/secretmanager.secretAccessor"
-    members = ["serviceAccount:service-598938623418@gcp-sa-cloudbuild.iam.gserviceaccount.com"]
+    members = ["serviceAccount:service-1079664469230@gcp-sa-cloudbuild.iam.gserviceaccount.com"]
   }
 }
 
@@ -21,12 +21,12 @@ resource "google_secret_manager_secret_iam_policy" "policy" {
 
 resource "google_cloudbuildv2_connection" "github" {
   provider = google-beta
-  project  = "staging-blakbear"
+  project  = "tidy-alchemy-377317"
   location = "europe-west1"
   name     = "github-${var.project_name}-${var.deploy_env}"
 
   github_config {
-    app_installation_id = 34004486
+    app_installation_id = 34063909
     authorizer_credential {
       oauth_token_secret_version = data.google_secret_manager_secret_version.github-token-secret-version.id
     }
@@ -41,7 +41,7 @@ resource "google_cloudbuildv2_repository" "staging" {
   location          = "europe-west1"
   name              = "${var.project_name}-${var.deploy_env}"
   parent_connection = google_cloudbuildv2_connection.github.id
-  remote_uri        = "https://github.com/Willis0826/staging.git"
+  remote_uri        = "https://github.com/ClaudiaWei/staging.git"
 }
 
 resource "google_cloudbuild_trigger" "repo-trigger" {
@@ -77,25 +77,25 @@ resource "google_service_account" "cloudbuild_service_account" {
 }
 
 resource "google_project_iam_member" "act_as" {
-  project = "staging-blakbear"
+  project = "tidy-alchemy-377317"
   role    = "roles/iam.serviceAccountUser"
   member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
 }
 
 resource "google_project_iam_member" "cloudbuild_builder" {
-  project = "staging-blakbear"
+  project = "tidy-alchemy-377317"
   role    = "roles/cloudbuild.builds.builder"
   member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
 }
 
 resource "google_project_iam_member" "cloudrun_admin" {
-  project = "staging-blakbear"
+  project = "tidy-alchemy-377317"
   role    = "roles/run.admin"
   member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
 }
 
 resource "google_project_iam_member" "logs_writer" {
-  project = "staging-blakbear"
+  project = "tidy-alchemy-377317"
   role    = "roles/logging.logWriter"
   member  = "serviceAccount:${google_service_account.cloudbuild_service_account.email}"
 }

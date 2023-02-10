@@ -22,7 +22,7 @@ Run these steps to provision GCP infra resources.
 
 ```bash
 gcloud auth login
-gcloud config set project staging-blakbear
+gcloud config set project tidy-alchemy-377317
 gcloud auth application-default login
 
 cd terraform
