@@ -1,7 +1,7 @@
 steps:
   # Build the container image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV", "."]
+    args: ["build", "-t", "gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV-ooo", "."]
   # Push the container image to Container Registry
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV-ooo"]
@@ -19,6 +19,6 @@ steps:
         "europe-west1",
       ]
 images:
-  - gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV
+  - gcr.io/tidy-alchemy-377317/staging-$_DEPLOY_ENV-ooo
 options:
   logging: CLOUD_LOGGING_ONLY
